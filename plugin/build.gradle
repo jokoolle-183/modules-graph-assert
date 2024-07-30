@@ -31,7 +31,7 @@ java {
   targetCompatibility JavaVersion.VERSION_11
 }
 
-group = 'com.jraska.module.graph.assertion'
+group = 'com.github.jokoolle-183.modules-graph-assert'
 
 gradlePlugin {
   website = 'https://github.com/jraska/modules-graph-assert'
@@ -39,12 +39,9 @@ gradlePlugin {
 
   plugins {
     modulesGraphAssert {
-      id = 'com.jraska.module.graph.assertion'
-      version = '2.6.0'
-      displayName = 'Modules Graph Assert'
-      description = 'Gradle plugin to keep your modules graph healthy and lean.'
+      id = 'com.github.jokoolle-183.modules-graph-assert'
+      version = '1.0.0'
       implementationClass = 'com.jraska.module.graph.assertion.ModuleGraphAssertionsPlugin'
-      tags.addAll('graph', 'assert', 'build speed', 'android', 'java', 'kotlin', 'quality', 'multiprojects', 'module')
     }
   }
 }
