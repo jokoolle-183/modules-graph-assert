@@ -27,15 +27,17 @@ class ModuleGraphAssertionsPlugin : Plugin<Project> {
   private lateinit var configurationsToLook: Set<String>
 
   override fun apply(project: Project) {
-    val graphRules = project.extensions.create(GraphRulesExtension::class.java, Api.EXTENSION_ROOT, GraphRulesExtension::class.java)
+    val graphRules = project.extensions.create(
+      GraphRulesExtension::class.java,
+      Api.EXTENSION_ROOT,
+      GraphRulesExtension::class.java
+    )
 
-    project.afterEvaluate {
+    project.gradle.projectsEvaluated {
       addModulesAssertions(project, graphRules)
 
       if (graphRules.assertOnAnyBuild) {
-        project.gradle.projectsEvaluated {
-          project.runAssertionsDirectly(graphRules)
-        }
+        project.runAssertionsDirectly(graphRules)
       }
     }
   }
@@ -47,7 +49,8 @@ class ModuleGraphAssertionsPlugin : Plugin<Project> {
     project.addModuleGraphGeneration()
     project.addModuleGraphStatisticsGeneration()
 
-    val allAssertionsTask = project.tasks.register(Tasks.ASSERT_ALL) { it.group = VERIFICATION_GROUP }
+    val allAssertionsTask =
+      project.tasks.register(Tasks.ASSERT_ALL) { it.group = VERIFICATION_GROUP }
 
     try {
       project.tasks.named(CHECK_TASK_NAME).configure { it.dependsOn(allAssertionsTask) }
